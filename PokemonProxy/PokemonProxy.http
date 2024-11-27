@@ -1,0 +1,6 @@
+@PokemonProxy_HostAddress = http://localhost:5225
+
+GET {{PokemonProxy_HostAddress}}/todos/
+Accept: application/json
+
+###
