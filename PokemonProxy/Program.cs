@@ -2,6 +2,7 @@ using System.Text.Json.Serialization;
 using PokemonProxy.Responses;
 using PokemonProxy.Services.Abstractions;
 using PokemonProxy.Services.Implementations;
+using PokemonProxy.Services.Model;
 
 var builder = WebApplication.CreateSlimBuilder(args);
 
@@ -12,8 +13,9 @@ builder.Services.ConfigureHttpJsonOptions(options =>
 
 builder.Services.AddSingleton<IPokedexService, PokedexService>();
 
-// TODO
-builder.Services.AddHttpClient();
+builder.Services.AddHttpClient("PokeApi", client => { client.BaseAddress = new Uri("https://pokeapi.co/api/v2"); });
+builder.Services.AddHttpClient("FunTranslationApi",
+    client => { client.BaseAddress = new Uri("https://api.funtranslations.com"); });
 
 var app = builder.Build();
 
