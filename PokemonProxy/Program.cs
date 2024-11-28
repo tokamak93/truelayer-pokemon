@@ -15,7 +15,7 @@ builder.Services.AddSingleton<IPokedexService, PokedexService>();
 
 builder.Services.AddHttpClient("PokeApi", client => { client.BaseAddress = new Uri("https://pokeapi.co/api/v2"); });
 builder.Services.AddHttpClient("FunTranslationApi",
-    client => { client.BaseAddress = new Uri("https://api.funtranslations.com"); });
+    client => { client.BaseAddress = new Uri("https://api.funtranslations.com/translate"); });
 
 var app = builder.Build();
 
