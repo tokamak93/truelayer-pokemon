@@ -1,5 +1,5 @@
-using System.Text;
 using System.Text.Json;
+using System.Text.Json.Serialization;
 using PokemonProxy.Services.Abstractions;
 using PokemonProxy.Services.Model;
 
@@ -18,7 +18,7 @@ public class PokedexService(IHttpClientFactory httpClientFactory) : IPokedexServ
 
         var pokemonSpeciesGetResponseBody =
             JsonSerializer.Deserialize<PokemonSpeciesGetResponseBody>(await pokemonSpeciesGetResponse.Content
-                .ReadAsStringAsync());
+                .ReadAsStringAsync(), SourceGenerationContext.Default.PokemonSpeciesGetResponseBody);
         if (pokemonSpeciesGetResponseBody == null)
             return null;
 
@@ -44,15 +44,15 @@ public class PokedexService(IHttpClientFactory httpClientFactory) : IPokedexServ
             httpClient.BaseAddress + "/" +
             (pokemonData.Legendary || pokemonData.Habitat == "cave" ? "yoda" : "shakespeare") +
             ".json",
-            JsonContent.Create(new FunTranslationApiRequest { Text = pokemonData.Description }));
+            JsonContent.Create(new FunTranslationApiRequest { Text = pokemonData.Description },
+                SourceGenerationContext.Default.FunTranslationApiRequest));
 
         if (!translatedPokemonDescriptionResponse.IsSuccessStatusCode)
             return pokemonData;
 
         var translatedPokemonDescriptionResponseBody =
-            JsonSerializer.Deserialize<TranslatedPokemonDescriptionResponseBody>(
-                await translatedPokemonDescriptionResponse.Content
-                    .ReadAsStringAsync());
+            JsonSerializer.Deserialize(await translatedPokemonDescriptionResponse.Content.ReadAsStringAsync(),
+                SourceGenerationContext.Default.TranslatedPokemonDescriptionResponseBody);
 
         if (translatedPokemonDescriptionResponseBody == null)
             return pokemonData;
@@ -60,4 +60,12 @@ public class PokedexService(IHttpClientFactory httpClientFactory) : IPokedexServ
         pokemonData.Description = translatedPokemonDescriptionResponseBody.Contents.Translated;
         return pokemonData;
     }
+}
+
+[JsonSourceGenerationOptions(WriteIndented = true)]
+[JsonSerializable(typeof(TranslatedPokemonDescriptionResponseBody))]
+[JsonSerializable(typeof(PokemonSpeciesGetResponseBody))]
+[JsonSerializable(typeof(FunTranslationApiRequest))]
+internal partial class SourceGenerationContext : JsonSerializerContext
+{
 }

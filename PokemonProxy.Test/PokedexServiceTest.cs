@@ -1,5 +1,6 @@
 using System.Net;
 using System.Text.Json;
+using Microsoft.Extensions.DependencyInjection;
 using Moq;
 using Moq.Protected;
 using PokemonProxy.Services.Implementations;
@@ -9,6 +10,13 @@ namespace PokemonProxy.Test;
 
 public class PokedexServiceTest
 {
+    public class Startup
+    {
+        public void ConfigureServices(IServiceCollection services)
+        {
+        }
+    }
+
     [Fact]
     public async Task GetPokemonDataAsync_ShouldReturnPokemonData_WhenPokemonDataIsNotNull()
     {
@@ -131,7 +139,7 @@ public class PokedexServiceTest
                 Contents = new Contents
                 {
                     Translated =
-                        "Created by a scientist after years of horrific genesplicing and dna engineering experiments, it was."
+                        "Created by a scientist after years of horrific gene splicing and dna engineering experiments,  it was."
                 }
             }))
         };

@@ -10,10 +10,4 @@
         <RootNamespace>PokemonProxy</RootNamespace>
     </PropertyGroup>
 
-    <ItemGroup>
-      <Content Include="..\.dockerignore">
-        <Link>.dockerignore</Link>
-      </Content>
-    </ItemGroup>
-
 </Project>

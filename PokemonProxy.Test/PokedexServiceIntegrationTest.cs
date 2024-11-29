@@ -1,11 +1,6 @@
-using System.Net;
-using System.Text.Json;
 using Microsoft.Extensions.DependencyInjection;
-using Moq;
-using Moq.Protected;
 using PokemonProxy.Services.Abstractions;
 using PokemonProxy.Services.Implementations;
-using PokemonProxy.Services.Model;
 
 namespace PokemonProxy.Test;
 
@@ -32,7 +27,7 @@ public class PokedexServiceIntegrationTest(IPokedexService sut)
         Assert.True(pokemonData.Legendary);
         Assert.Equal("rare", pokemonData.Habitat);
         Assert.Equal(
-            "It was created by\na scientist after\nyears of horrific\fgene splicing and\nDNA engineering\nexperiments.",
+            "It was created by a scientist after years of horrific gene splicing and DNA engineering experiments.",
             pokemonData.Description);
     }
 

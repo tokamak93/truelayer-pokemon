@@ -1,6 +1,12 @@
-@PokemonProxy_HostAddress = http://localhost:5225
+@PokemonProxy_HostAddress = https://localhost:5225
+@pokemonName = pikachu
 
-GET {{PokemonProxy_HostAddress}}/todos/
+GET {{PokemonProxy_HostAddress}}/pokemon/{{pokemonName}}
+Accept: application/json
+
+###
+
+GET {{PokemonProxy_HostAddress}}/translated/pokemon/{{pokemonName}}
 Accept: application/json
 
 ###
