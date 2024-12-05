@@ -17,7 +17,7 @@ public class PokedexService(IHttpClientFactory httpClientFactory) : IPokedexServ
             return null;
 
         var pokemonSpeciesGetResponseBody =
-            JsonSerializer.Deserialize<PokemonSpeciesGetResponseBody>(await pokemonSpeciesGetResponse.Content
+            JsonSerializer.Deserialize(await pokemonSpeciesGetResponse.Content
                 .ReadAsStringAsync(), SourceGenerationContext.Default.PokemonSpeciesGetResponseBody);
         if (pokemonSpeciesGetResponseBody == null)
             return null;

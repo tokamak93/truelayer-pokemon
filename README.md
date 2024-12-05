@@ -63,7 +63,9 @@ With an identifier token like a JWT you can track and RateLimit requests with a 
 A Caching layer would drastically reduce response time since the pokeApi server is not in the same network as the
 ProxyApi and its subject to network latency.
 Moreover, Http API are very slow compared to something like gRPC. Unfortunately in this case it is not supported.
-This project is very lightweight and has a simple structure. If more API were added the project would need more structure.
+This project is very lightweight and has a simple structure. If more API were added the project would need more
+structure.
 For example:
-- separation of API declaration from the handler. 
+
+- separation of API declaration from the handler.
 - better separation of modules like a service project or a repository project.
